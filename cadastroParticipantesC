@@ -1,0 +1,241 @@
+<
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <locale.h>
+
+
+int main ()
+{
+setlocale (LC_ALL, "Portuguese");
+
+bool a = true, b; //criando variável para realizar o looping
+int pne [15] = {false}; // lugar para portador de necessidade especiais
+int prof [20] = {false}; // lugar para professores na frente
+int part [265] = {false}; // lugares restantes
+char op; // variável operador de case
+char nome [30]; // Variável para receber o nome do participante
+char sbnome [30];
+int i, count, id; // variável i para o for/ count para contar/ id serve para confirmar a chegada do participante
+
+
+while (a == true)
+{// criando um menu com while para que ele não feche sem a intenção do usuário
+printf ("----SISTEMA DE CONTROLE----\n"); //definindo os menus
+printf ("1 - Inscrição para evento\n");
+printf ("2 - Confirmar chegada\n");
+printf ("3 - Verificar confirmados\n");
+printf ("4 - Sair\n");
+printf ("Opção: ");
+scanf (" %c", &op); // recebendo informações do usuário
+		
+switch(op)
+{
+case '1':
+b = true;
+while (b == true)
+{
+printf("Digite:\n(E) para PNE\n(P) para Professores\n(N) participante normal\nOpção: ");
+scanf (" %c", &op);
+if (op == 'e' || op == 'E’)
+{
+printf ("Digite o primeiro nome do participante: ");
+scanf ("%s", &nome);
+printf ("Digite o sobrenome do participante: ");
+scanf ("%s", &sbnome);
+
+for (i=1; i <=15; i++)
+{
+if(pne[i]! = 2)
+printf ("|%i", i); //ele vai imprimir a quantidade ocupada
+}
+
+printf ("\nDigite o assento que deseja: ");
+scanf ("%i", &i);
+if (i > 0 && i <16)
+{
+pne[i] = 2;
+system("cls");
+printf ("Participante cadastrado com sucesso! \nNome: %s %s\nAssento: %i\n", nome, sbnome, i);
+} else
+printf ("Assento inválido ou não disponível.\n");
+system("pause");
+system("cls");
+
+b = false;
+
+}
+else if (op == 'p' || op == 'P’) {
+printf ("Digite o primeiro nome do participante: ");
+scanf ("%s", &nome);
+printf ("Digite o sobrenome do participante: ");
+scanf ("%s", &sbnome);
+
+for (i=1; i <=20; i++)
+{
+if(prof[i] != 2)
+printf ("|%i", i); //ele vai imprimir a quantidade ocupada
+}
+
+printf ("\nDigite o assento que deseja: ");
+scanf ("%i", &i);
+
+if (i > 0 && i < 21)
+{
+prof[i] = 2;
+system("cls");
+printf ("Participante cadastrado com sucesso! \nNome: %s %s\nAssento: %i\n", nome, sbnome, i);
+}
+else
+printf ("Assento inválido ou não disponível.\n");
+system("pause");
+system("cls");
+
+b = false;
+}
+else if (op == 'n' || op == 'N’)
+{
+printf ("Digite o primeiro nome do participante: ");
+scanf ("%s", &nome);
+printf ("Digite o sobrenome do participante: ");
+scanf ("%s", &sbnome);
+
+for (i=1; i <=250; i++)
+{
+if(part[i]! = 2)
+printf ("|%i", i); //ele vai imprimir a quantidade ocupada
+}
+
+printf ("\nDigite o assento que deseja: ");
+scanf ("%i", &i);
+
+if (i > 0 && i < 266)
+{
+part[i] = 2;
+system("cls");
+printf ("Participante cadastrado com sucesso! \nNome: %s %s\nAssento: %i\n", nome, sbnome, i);
+}
+else
+printf ("Assento inválido ou não disponível.\n");
+
+system("pause");
+system("cls");
+
+b = false;
+}
+else
+{
+printf ("Opção inválida, tente novamente.");
+system("pause");
+system("cls");
+}
+}
+break;
+
+case '2':
+// Essa sessão é para confirmar a chegada dos participantes
+b = true; // Ele deve sempre ser true
+while (b == true)
+{// criando um laço de repetição para ele retornar o menu até que o valor seja falso
+printf("Digite:\n(E) para PNE\n(P) para Professores\n(N) particpante normal\nOpção: ");
+scanf (" %c", &op); // lendo os dados e reaproveitando variáveis
+if (op == 'E' || op == 'e’)
+{// ele vai verificar se o usuário digitou ‘e’ ou ‘E’ e retornara acesso ao id
+printf ("Digite o ID do participante: "); // nessas 2 linhas a seguir ele vai pedir e confirmar o id do participante
+scanf ("%i", &id);
+pne[id] = 1; // ele vai confirmar o id do participante
+printf ("ID confirmado com sucesso! \n");
+b = false; // ele retorna falso para acabar o looping
+
+}
+else if (op == 'P' || op == 'p’)
+{// ele vai verificar se o usuário digitou p ou P e retornara acesso ao id
+printf ("Digite o ID do participante: "); // nessas 2 linhas a seguir ele vai pedir e confirmar o id do participante
+scanf ("%i", &id);
+prof[id] = 1; // ele vai confirmar o id do participante
+printf ("ID confirmado com sucesso! \n");
+b = false; // ele retorna falso para acabar o looping
+
+}
+else if (op == 'N' || op == 'n’) {// ele vai verificar se o usuário digitou N ou n e retornara acesso ao id
+printf ("Digite o ID do participante: "); // nessas 2 linhas a seguir ele vai pedir e confirmar o id do participante
+scanf ("%i", &id);
+part[id] = 1; // ele vai confirmar o id do participante
+printf ("ID confirmado com sucesso! \n");
+b = false; // ele retorna falso para acabar o looping
+
+}
+else
+{
+printf ("Opção inválida, tente novamente.\n"); // ele vai retornar ao usuário que a opção é invalida.
+system("pause");
+system("cls");
+}
+}
+system("pause");
+system("cls");
+break;
+
+case '3':
+// essa sessão vai verificar se todos chegaram.
+count = 0; // ele deverá retornar sempre a 0
+printf ("ID dos participantes\n");
+for (i=1; i <=265; i++)
+{
+if(part[i] == 1) {
+count += 1; //ele vai incrementar 1 no contador assim ele vai verificar quantas vagas existente
+printf ("|%i", i); //ele vai imprimir a quantidade ocupada
+}
+}
+printf("|\n"); // apenas por estética
+printf ("Total de participantes: %i\n", count);
+
+count = 0; // ele deverá retornar sempre a 0
+printf ("ID dos participantes PNE\n");
+for (i=1; i <=15; i++)
+{
+if(pne[i] == 1)
+{
+count += 1; //ele vai incrementar 1 no contador assim ele vai verificar quantas vagas existente
+printf ("|%i", i); //ele vai imprimir a quantidade ocupada
+}
+}
+printf("|\n"); // apenas por estética
+printf ("Total de participantes PNE: %i\n", count);
+
+count = 0; // ele deverá retornar sempre a 0
+printf ("ID dos professores participantes:\n");
+for (i=1; i <=20; i++)
+{
+if(prof[i] == 1)
+{
+count += 1; //ele vai incrementar 1 no contador assim ele vai verificar quantas vagas existente
+printf ("|%i", i); //ele vai imprimir a quantidade ocupada
+}
+}
+printf("|\n"); // apenas por estética
+printf ("Total de participantes: %i\n", count);
+
+
+system("pause"); // pausando para o usuário ler as informações
+system("cls"); // limpando para ficar mais legível
+break;
+
+case '4':
+printf ("Encerrando sistema...\n");
+a = false;
+break;
+
+default:
+printf ("Opção inválida, tente novamente.\n"); //retornando ao usuário se não existir a opção informada
+system("pause"); // fazendo uma pausa para o usuário ler
+system("cls"); //limpando a tela para ficar mais agradável
+break;
+}
+
+}
+
+system("pause");
+
+}
+>
